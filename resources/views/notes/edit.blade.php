@@ -4,13 +4,12 @@
 
 @section('content')
 
-    <div class="p-8">
+    <div class="notes-page notes-editor-page">
 
         <div class="max-w-4xl">
 
             {{-- Back --}}
-            <a href="{{ route('notes.show', $note) }}"
-                class="inline-flex items-center text-sm font-medium text-slate-500 transition hover:text-slate-900">
+            <a href="{{ route('notes.show', $note) }}" class="notes-back">
                 ← Back to Note
             </a>
 
@@ -18,7 +17,8 @@
             {{-- Header --}}
             <div class="mt-8">
 
-                <h1 class="text-2xl font-bold tracking-tight text-slate-900">
+                <p class="notes-eyebrow">Personal library</p>
+                <h1 class="notes-title text-2xl font-bold tracking-tight text-slate-900">
                     Edit Note
                 </h1>
 
@@ -31,7 +31,7 @@
 
             {{-- Form --}}
             <form action="{{ route('notes.update', $note) }}" method="POST"
-                class="mt-8 rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
+                class="notes-editor mt-8 rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
 
                 @csrf
                 @method('PUT')

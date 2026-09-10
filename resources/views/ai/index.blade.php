@@ -4,10 +4,10 @@
 
 @section('content')
 
-    <div class="flex h-screen overflow-hidden bg-slate-50">
+    <div class="ai-page flex h-screen overflow-hidden bg-slate-50">
 
         {{-- SIDEBAR --}}
-        <aside class="flex w-72 shrink-0 flex-col border-r border-slate-200 bg-white">
+        <aside class="ai-sidebar flex w-72 shrink-0 flex-col border-r border-slate-200 bg-white">
 
             {{-- Sidebar Header --}}
             <div class="flex items-center justify-between border-b border-slate-200 px-5 py-4">
@@ -69,7 +69,7 @@
 
 
         {{-- MAIN CHAT --}}
-        <main class="flex min-w-0 flex-1 flex-col">
+        <main class="ai-main flex min-w-0 flex-1 flex-col">
 
             {{-- Header --}}
             <header class="flex h-16 shrink-0 items-center border-b border-slate-200 bg-white px-6">

@@ -2,60 +2,59 @@
     $notesCount = auth()->user()->notes()->where('is_archived', false)->count();
 @endphp
 
-<aside class="fixed inset-y-0 left-0 z-40 w-64 border-r border-slate-200 bg-white">
+<button type="button" class="sidebar-mobile-toggle" @click="sidebarOpen = true" aria-label="Open navigation">
+    <span></span><span></span><span></span>
+</button>
 
-    <div class="flex h-16 items-center border-b border-slate-200 px-6">
-        <div>
-            <h1 class="text-lg font-bold tracking-tight">
-                Productivity OS
-            </h1>
+<div class="sidebar-overlay" x-show="sidebarOpen" x-transition.opacity @click="sidebarOpen = false" aria-hidden="true">
+</div>
 
-            <p class="text-xs text-slate-400">
-                Personal workspace
-            </p>
-        </div>
+<aside class="app-sidebar" :class="{ 'is-open': sidebarOpen }">
+
+    <div class="sidebar-brand">
+        <a href="{{ route('dashboard') }}" class="sidebar-brand-link">
+            <span class="sidebar-brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span>productivity<span>.</span>os</span>
+        </a>
+        <button type="button" class="sidebar-close" @click="sidebarOpen = false"
+            aria-label="Close navigation">×</button>
     </div>
 
-
-    <nav class="space-y-6 p-4">
+    <nav class="sidebar-nav">
 
         {{-- OVERVIEW --}}
-        <div>
-            <p class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
-                Overview
-            </p>
+        <div class="sidebar-section">
+            <p class="sidebar-section-label">Overview</p>
 
             <a href="{{ route('dashboard') }}"
-                class="flex items-center gap-3 rounded-lg bg-slate-100 px-3 py-2.5 text-sm font-medium">
-                <span>⌂</span>
+                class="sidebar-link {{ request()->routeIs('dashboard') ? 'is-active' : '' }}">
+                <span class="sidebar-icon">⌂</span>
                 Dashboard
             </a>
         </div>
 
 
         {{-- WORK --}}
-        <div>
-            <p class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
-                Work
-            </p>
+        <div class="sidebar-section">
+            <p class="sidebar-section-label">Work</p>
 
             <div class="space-y-1">
 
                 <a href="{{ route('tasks.index') }}"
-                    class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-600 hover:bg-slate-100">
-                    <span>✓</span>
+                    class="sidebar-link {{ request()->routeIs('tasks.*') ? 'is-active' : '' }}">
+                    <span class="sidebar-icon">✓</span>
                     Tasks
                 </a>
 
                 <a href="{{ route('projects.index') }}"
-                    class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-600 hover:bg-slate-100">
-                    <span>◆</span>
+                    class="sidebar-link {{ request()->routeIs('projects.*') ? 'is-active' : '' }}">
+                    <span class="sidebar-icon">◆</span>
                     Projects
                 </a>
 
                 <a href="{{ route('calendar.index') }}"
-                    class="{{ request()->routeIs('calendar.*') ? 'bg-slate-100 text-slate-900' : 'text-slate-600 hover:bg-slate-50' }} flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium">
-                    <span>📅</span>
+                    class="sidebar-link {{ request()->routeIs('calendar.*') ? 'is-active' : '' }}">
+                    <span class="sidebar-icon">□</span>
                     Calendar
                 </a>
 
@@ -64,66 +63,56 @@
 
 
         {{-- PERSONAL --}}
-        <div>
-            <p class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
-                Personal
-            </p>
+        <div class="sidebar-section">
+            <p class="sidebar-section-label">Personal</p>
 
             <div class="space-y-1">
 
                 <a href="{{ route('goals.index') }}"
-                    class="{{ request()->routeIs('goals.*') ? 'bg-slate-100 text-slate-900' : 'text-slate-600 hover:bg-slate-50' }} flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium">
-                    <span>🎯</span>
+                    class="sidebar-link {{ request()->routeIs('goals.*') ? 'is-active' : '' }}">
+                    <span class="sidebar-icon">◎</span>
                     Goals
                 </a>
 
-                <a href="#"
-                    class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-600 hover:bg-slate-100">
-                    <span>♨</span>
+                <a href="{{ route('habits.index') }}"
+                    class="sidebar-link {{ request()->routeIs('habits.*') ? 'is-active' : '' }}">
+                    <span class="sidebar-icon">↗</span>
                     Habits
                 </a>
 
-                <a href="{{ route('habits.index') }}"
-                    class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-600 hover:bg-slate-100">
-                    <span>✎</span>
-                    Notes
-                </a>
-
                 <a href="{{ route('notes.index') }}"
-                    class="flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium text-slate-600 hover:bg-slate-100">
-                    <span class="flex items-center gap-3">
-                        <span>📝</span>
-                        <span>Notes</span>
+                    class="sidebar-link {{ request()->routeIs('notes.*') ? 'is-active' : '' }}">
+                    <span class="sidebar-link-label">
+                        <span class="sidebar-icon">✎</span>
+                        Notes
                     </span>
 
                     @if ($notesCount > 0)
-                        <span class="rounded-full bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-500">
+                        <span class="sidebar-count">
                             {{ $notesCount }}
                         </span>
                     @endif
                 </a>
-                
+
             </div>
         </div>
 
 
         {{-- INSIGHTS --}}
-        <div>
-            <p class="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
-                Insights
-            </p>
+        <div class="sidebar-section">
+            <p class="sidebar-section-label">Insights</p>
 
             <div class="space-y-1">
 
-                <a href="#"
-                    class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-600 hover:bg-slate-100">
-                    <span>▥</span>
+                <a href="{{ route('analytics.index') }}"
+                    class="sidebar-link {{ request()->routeIs('analytics.*') ? 'is-active' : '' }}">
+                    <span class="sidebar-icon">▥</span>
                     Analytics
                 </a>
 
-                <a href="#"
-                    class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-600 hover:bg-slate-100">
-                    <span>✦</span>
+                <a href="{{ route('ai.index') }}"
+                    class="sidebar-link {{ request()->routeIs('ai.*') ? 'is-active' : '' }}">
+                    <span class="sidebar-icon">✦</span>
                     AI Assistant
                 </a>
 
@@ -134,24 +123,23 @@
 
 
     {{-- USER --}}
-    <div class="absolute bottom-0 w-full border-t border-slate-200 p-4">
+    <div class="sidebar-user">
 
         <div class="flex items-center justify-between">
 
-            <div class="flex items-center gap-3">
+            <div class="sidebar-user-info">
 
-                <div
-                    class="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-sm font-semibold text-white">
+                <div class="sidebar-avatar">
                     {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                 </div>
 
                 <div>
-                    <p class="text-sm font-medium">
+                    <p class="sidebar-user-name">
                         {{ auth()->user()->name }}
                     </p>
 
-                    <p class="text-xs text-slate-400">
-                        Personal
+                    <p class="sidebar-user-role">
+                        Personal workspace
                     </p>
                 </div>
 
@@ -160,8 +148,8 @@
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
 
-                <button type="submit" class="text-xs text-slate-400 hover:text-red-500">
-                    Logout
+                <button type="submit" class="sidebar-logout" aria-label="Log out">
+                    ↗
                 </button>
             </form>
 

@@ -4,13 +4,14 @@
 
 @section('content')
 
-    <div class="p-8">
+    <div class="notes-page">
 
         {{-- Header --}}
-        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div class="notes-header flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
             <div>
-                <h1 class="text-2xl font-bold tracking-tight text-slate-900">
+                <p class="notes-eyebrow">Personal library</p>
+                <h1 class="notes-title text-2xl font-bold tracking-tight text-slate-900">
                     Notes
                 </h1>
 
@@ -20,13 +21,13 @@
             </div>
 
             <a href="{{ route('notes.create') }}"
-                class="inline-flex items-center justify-center rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-slate-800">
+                class="notes-primary inline-flex items-center justify-center rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-slate-800">
                 + New Note
             </a>
 
         </div>
 
-        <div class="mb-6 flex flex-wrap gap-2">
+        <div class="notes-tabs mb-6 flex flex-wrap gap-2">
 
             <a href="{{ route('notes.index') }}"
                 class="rounded-xl px-4 py-2.5 text-sm font-semibold
@@ -54,12 +55,12 @@
 
         </div>
 
-        <div class="mb-6 grid gap-4 sm:grid-cols-3">
+        <div class="notes-stats mb-6 grid gap-4 sm:grid-cols-3">
 
             {{-- All Notes --}}
 
             <a href="{{ route('notes.index') }}"
-                class="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-slate-300 hover:shadow-sm">
+                class="notes-stat rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-slate-300 hover:shadow-sm">
 
                 <div class="flex items-center justify-between">
 
@@ -85,7 +86,7 @@
             {{-- Pinned --}}
 
             <a href="{{ route('notes.index', ['view' => 'pinned']) }}"
-                class="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-slate-300 hover:shadow-sm">
+                class="notes-stat rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-slate-300 hover:shadow-sm">
 
                 <div class="flex items-center justify-between">
 
@@ -113,7 +114,7 @@
             {{-- Archived --}}
 
             <a href="{{ route('notes.index', ['view' => 'archived']) }}"
-                class="rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-slate-300 hover:shadow-sm">
+                class="notes-stat rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-slate-300 hover:shadow-sm">
 
                 <div class="flex items-center justify-between">
 
@@ -141,7 +142,7 @@
 
         {{-- Search --}}
         <form action="{{ route('notes.index') }}" method="GET"
-            class="mb-6 rounded-2xl border border-slate-200 bg-white p-4">
+            class="notes-toolbar mb-6 rounded-2xl border border-slate-200 bg-white p-4">
 
             <input type="hidden" name="view" value="{{ $view }}">
 
@@ -252,7 +253,7 @@
 
                     @foreach ($notes as $note)
                         <div
-                            class="group relative rounded-2xl border border-slate-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-sm">
+                            class="note-card group relative rounded-2xl border border-slate-200 bg-white p-5 transition hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-sm">
 
                             {{-- Pin --}}
                             @if ($note->is_pinned)
@@ -306,7 +307,7 @@
                 </div>
             @else
                 {{-- Empty State --}}
-                <div class="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center">
+                <div class="notes-empty rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center">
 
                     <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-2xl">
                         📝

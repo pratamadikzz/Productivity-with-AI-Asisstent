@@ -4,17 +4,16 @@
 
 @section('content')
 
-    <div class="p-8">
+    <div class="notes-page notes-detail-page">
 
         {{-- Back --}}
-        <a href="{{ route('notes.index') }}"
-            class="inline-flex items-center text-sm font-medium text-slate-500 transition hover:text-slate-900">
+        <a href="{{ route('notes.index') }}" class="notes-back">
             ← Back to Notes
         </a>
 
 
         {{-- Header --}}
-        <div class="mt-8 flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+        <div class="notes-detail-header mt-8 flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
 
             <div class="max-w-3xl">
 
@@ -25,7 +24,8 @@
                     </div>
                 @endif
 
-                <h1 class="text-3xl font-bold tracking-tight text-slate-900">
+                <p class="notes-eyebrow">Note detail</p>
+                <h1 class="notes-title text-3xl font-bold tracking-tight text-slate-900">
                     {{ $note->title }}
                 </h1>
 
@@ -37,7 +37,7 @@
 
 
             {{-- Actions --}}
-            <div class="flex flex-wrap items-center gap-2">
+            <div class="notes-actions flex flex-wrap items-center gap-2">
 
                 {{-- Pin --}}
                 <form action="{{ route('notes.pin', $note) }}" method="POST">
@@ -88,7 +88,7 @@
 
 
         {{-- Content --}}
-        <article class="mt-8 max-w-4xl rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
+        <article class="notes-content mt-8 max-w-4xl rounded-2xl border border-slate-200 bg-white p-6 sm:p-8">
 
             @if ($note->content)
                 <div class="whitespace-pre-line text-sm leading-7 text-slate-700">

@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="p-8">
+    <div class="module-page calendar-page">
 
         {{-- HEADER --}}
         <div class="mb-8 flex items-center justify-between">

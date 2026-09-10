@@ -58,17 +58,17 @@
     @stack('styles')
 </head>
 
-<body class="bg-slate-50 text-slate-900 antialiased">
+<body class="app-page antialiased">
 
-    <div class="min-h-screen">
+    <div class="app-shell" x-data="{ sidebarOpen: false }">
 
         @include('layouts.sidebar')
 
-        <main class="ml-64 min-h-screen">
+        <main class="app-main">
             @if (session('success'))
-                <div class="px-8 pt-6">
+                <div class="app-flash-wrap">
 
-                    <div class="rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+                    <div class="app-flash">
                         {{ session('success') }}
                     </div>
 
